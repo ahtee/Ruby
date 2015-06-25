@@ -1,0 +1,6 @@
+glob.sr
+a.out
+snafoo
+newfile
+test
+calcpath

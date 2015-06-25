@@ -1,0 +1,22 @@
+#!/usr/bin/ruby
+
+#this program was written by Ben Otte
+
+#ARGV.each gets each cmmand line parameter and allows us to iterate this code below through each of the command line ARGS
+ARGV.each do |a|
+	#get the size of the dreactory and the name and split the data
+	size = `du -sm #{a}`.split
+	#set the data into variables
+	file = size[1]
+	size = size[0]
+	#print the data relating to the file we entered in the command line
+	print file.to_s + ": "
+	#print hashes fr each MB we returned from the du command
+	cnt = 0	
+	while cnt < size.to_i
+		print "#"
+		cnt +=1
+	end
+	puts "\n"
+end
+

@@ -1,0 +1,143 @@
+#!/usr/bin/ruby
+#Prog 3 - Part 1
+#This program was written by Ben Otte
+
+
+class CommonLog
+#create a histogram of ip addresses gathered from the log file
+	def iphist(path)
+		i = Hash.new(0)
+		cnt = 1
+		f=File.open('test_log')
+		f.readlines.each do |line|
+			part = line.split(' ')
+			ip = part[0]
+			i[ip] =i[ip] + 1	
+			cnt +=1
+		end
+		i.sort.each do |k, v|
+			print "The frequency of #{k} | "
+			while v > 0
+				print "#"
+				v-=1
+			end
+		puts "\n"
+		end
+	end
+#create a histogram of url addresses gathered from the log file
+	def urlhist(path)
+		u = Hash.new(0)
+		cnt = 0
+		f=File.open(path)
+		f.readlines.each do |line|
+			part = line.split(' ')
+			url = part[6]
+			u[url] = u[url] + 1
+			cnt +=1	
+		end
+		u.sort.each do |k, v|
+			print "The frequency of #{k} | "
+			while v > 0
+				print "#"
+				v-=1
+			end
+		puts "\n"
+		end
+		
+	end
+#create a list of statuses and display the common status codes returned 
+	def statuslist(path)
+		s = Hash.new(0)
+		count = 0.0
+		f=File.open('test_log')
+                f.readlines.each do |line|
+                        part = line.split(' ')
+                        status = part[8]
+                        s[status] = s[status] + 1
+                        count +=1
+                end
+
+		print "\nHTTP Status Codes Summary: \n\n"
+		s.sort.each do |k, v|
+			print "#{k}: #{((v/count)*100).round}%\n"
+		end	
+	end
+
+
+end
+
+
+#PART 2 of the programming assignment
+#Source code provided by Teresa Riley. I made alterationos to her source code to fit my program.
+#enable option parsing
+
+require 'optparse'
+
+op = OptionParser.new
+
+optI = false
+optU = false
+optS = false
+
+#Help messsage is displayed if user puts -h
+#The help is displayed by default in the optionparser import
+
+#Printts the ASCII histogram is the user enters -i
+op.on("-i", "--ipaddress", "Prints an ASCII histogram of ip addresses.") do |i|
+	optI = i
+end
+
+#Prints an ASCII histogram of URLs
+op.on("-u", "--urladdress", "Prints an ASCII histogram of url addresses.")do |u|
+	optU = u
+end
+
+#Prints a status code list of percentages
+op.on("-s", "--statuscodes", "Prints a sorted list of HTTP status codes.") do |s|
+	optS = s
+end	
+
+op.banner = "FORMAT: apachereport [options] filepath"
+
+#parse the options when given. if a option is not valid, print a message
+#we are using the destructive parse version of "parse"
+begin
+	op.parse!
+	rescue => m
+	puts m.message
+	puts op
+	exit
+end
+#check to see if the path is given
+
+#if no path is given return argument required and exit the program.
+if ARGV.length < 1
+	puts "Argument required"
+	exit
+end
+
+#set the path to the input variable
+input = ARGV[0]
+
+#create a new CommonLog class object
+c = CommonLog.new
+
+#if user chose opt i for ip addresses returm the result
+if optI
+	output = c.iphist(input)
+end
+#if the user chose optU the url addresses return option u
+if optU
+	output = c.urlhist(input)
+end
+#if the user chose the optS return status codes
+if optS
+	output = c.statuslist(input)
+end
+
+#if none of the parsers are true, if the user does not specify a particular output, print all 3 method outputs
+if !optI and !optU and !optS
+	c.iphist(input)
+	c.urlhist(input)
+	c.statuslist(input)
+end

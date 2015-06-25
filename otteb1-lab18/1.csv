@@ -1,0 +1,21 @@
+#!/usr/bin/ruby
+
+#extract "username" and "final" columns and save them into a new csv file.
+#csv4.rb
+require 'csv'
+rows=[]
+avg= Array.new(0)
+
+CSV.foreach('Book1.csv') do |wr|
+        avg = CSV.append('Average')
+        puts avg
+end
+CSV.foreach('Book1.csv') do |reader|
+        rows << reader.values_at(0, 4)
+end
+
+
+CSV.open('average_grades.csv', 'w') do |writer|
+   rows.each { |record| writer << record }
+end
+

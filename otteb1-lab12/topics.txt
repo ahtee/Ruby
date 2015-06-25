@@ -1,0 +1,33 @@
+Introduction
+General Concepts
+Unix Refresher   
+Variables/Data Types
+Arrays & Hashes
+Conditional Structures
+Iterators
+Built-in Methods (1)
+Built-in Methods (2)
+Writing Your Own Methods
+Recursion
+Reading & Writing
+Directories
+Midterm Review
+Midterm
+No class
+Fall Break - no class
+Date & Time
+Ruby Classes
+Creating New Classes
+Exception Handling 
+Command Line Parameters (1)
+Command Line Parameters (2)
+Regular Expressions (1)
+Regular Expressions (2)
+External Commands
+CSV
+XML
+Graphs
+Thanksgiving - no class
+Network Services
+Final Review
+
